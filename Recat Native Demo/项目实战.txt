@@ -1,0 +1,88 @@
+项目实战：
+
+一、项目设计
+
+	豆瓣项目
+		|
+	    |-----图书
+	    |		|
+	    |		|-----列表页面（搜索功能）
+	    |		|
+	    |		|-----详细页面（自定义布局）
+	    |
+	    |-----电影
+	    		|
+	    		|-----列表页面（搜索功能）
+	    		|
+	    		|-----详细页面（WebView）
+
+二、模块划分
+
+	1、公共模块
+
+		1）工具类		util.js
+
+			获取屏幕size
+			基于分fetch的get请求
+			loading组件
+
+		2）API接口列表	service.js
+
+			图书搜索
+			图书详情
+			电影搜索
+
+		3）Navigator封装		navigation.js
+
+			每个模块都需要Navigator控制页面导航
+
+		4)Header封装		header.js left_icon.js
+
+			图书评价、电影详情都需要展示header
+
+		5)搜索框封装		searchBar.js
+
+			图书列表和电影列表都需要添加搜索框
+
+		6)WebView封装 customWebView.js
+			通过WebView加载电影详情
+
+	2、图书模块
+
+		1)图书列表 				book_list.js
+		2)图书列表Item(行组件)	book_item.js
+		3)图书详情 				book_detai.js
+
+	3、电影模块
+		1)电影列表 				movie_list.js
+		2)电影列表Item(行组件)	movie_item.js
+
+三、项目API
+	
+	豆瓣API V2	https://developers.douban.com/wiki/?title=api_v2
+	图书API V2 	https://developers.douban.com/wiki/?title=book_v2
+	电影API V2 	https://developers.douban.com/wiki/?title=movie_v2
+
+	1、图书
+		1）搜索图书：
+		API：GET  https://api.douban.com/v2/book/search
+		
+		参数	意义	备注
+		q	查询关键字	q和tag必传其一
+		tag	查询的tag	q和tag必传其一
+		start	取结果的offset	默认为0
+		count	取结果的条数	默认为20，最大为100
+
+	2、电影：
+		1）电影搜索：
+		API：GET		https://developers.douban.com/wiki/?title=movie_v2#search
+
+		Resources URI
+		/v2/movie/search?q={text}
+
+		Required Scope
+		movie_basic_r
+
+		Example:
+		GET /v2/movie/search?q=张艺谋 GET /v2/movie/search?tag=喜剧
+

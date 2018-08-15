@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<!-- 模板文件，请勿修改 -->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!--react.js是react的核心库 -->
+    <script src="./build/react.js" charset="utf-8"></script>
+    <!--react-dom.js提供与dom相关的功能-->
+    <script src="./build/react-dom.js" charset="utf-8"></script>
+    <!-- browser.min.js的作用是将JSX的语法转换成JavaScript的语法 -->
+    <script src="./build/browser.min.js" charset="utf-8"></script>
+    <!-- 上边直接使用本地文件，也可以使用在线文件，在src处传入网址 -->
+
+  </head>
+  <body>
+    <!-- React的渲染模板内容会插入到扎个dom节点中，作为一个容器 -->
+    <div id="container">
+
+    </div>
+  </body>
+  <!-- 在React开发中，使用JSX，更JavaScript不兼容，在使用JSX的地方，要设置type：text/babel -->
+  <!-- babel是一个转换编译器，ES6转换成可以在浏览器中运行的代码 -->
+  <script type="text/babel">
+    // 在此处编写React代码
+    /*
+      props、state
+      props是组件的自身的属性，一般用于嵌套的内外组件中，负责传递信息(通常是父层组件向子层传递数据)
+      注意：props对象中的人属性与组件的属性一一对应，不要直接去修改props中的属性值
+    */
+
+    /*
+    需求：
+    定义一个组件WebShow。功能：输出网站的名字和网址，网址是一个可以点击的链接
+    分析：定义一个组件WebName负责输出网站的名字，定义组件WebLink显示网站的网址，且可以点击
+
+    思路：
+    1、给WebShow设置两个属性，wname，wlink
+    2、WebShow的props对象增加两个属性值
+    3.WebName从WebShow的props对象中获取wname的值，即网站名。
+   */
+
+
+  //  定义WebName
+  // var WebName = React.createClass({
+  //   render: function(){
+  //     return <h1>{this.props.webName}</h1>;
+  //   }
+  // });
+  //
+  // // 定义WebLink
+  // var WebLink = React.createClass({
+  //   render: function(){
+  //     return <a href={this.props.webLink}>{this.props.webLink}</a>;
+  //   }
+  // });
+  //
+  // // 定义WebShow
+  // var WebShow = React.createClass({
+  //   render: function(){
+  //     return (
+  //       <div>
+  //         <WebName webName={this.props.wname}/>
+  //         <WebLink webLink={this.props.wlink}/>
+  //       </div>
+  //     );
+  //   }
+  // });
+  //
+  // // 渲染
+  // ReactDOM.render(
+  //   <WebShow wname="Facebook" wlink="https://www.facebook.com"/>,
+  //   document.getElementById('container')
+  // );
+
+// ------------分割线----------------------
+  /*
+    ...this.props
+    props提供的语法糖，可以将父组件中的全部属性都复制给子组件
+
+    需求：定义一个Link组件，Link组件中只包含一个<a>，我们不给<a>设置任何属性，
+  */
+  // var Link = React.createClass({
+  //   render: function() {
+  //     return <a {...this.props}>{this.props.name}</a>
+  //   }
+  // });
+  //
+  // // 渲染
+  // ReactDOM.render(
+  //   <Link href="https://www.facebook.com" name="Facebook"/>,
+  //   document.getElementById('container')
+  // );
+
+// --------------分割线，第9节----------------------
+
+/*
+  this.props.children
+
+  children是一个例外，不是跟组件的属性对应的。
+  表示组件的所有的子节点。
+
+  HTML5中有一种标签：列表 <ul> <ol> <li>
+
+  定义一个列表组件，列表项中显示的内容，以及列表项的数量都是由外部决定的
+*/
+
+// var ListComponent = React.createClass({
+//   render: function() {
+//     return (
+//       <ul>
+//         {
+//           /*
+//             列表项数量以及内容不确定，在创建模板是才能确定
+//             利用this.props.children从父组件获取需要展示的列表内容
+//
+//             获取到列表项内容后，需要遍历children，逐项进行设置
+//             利用React.Children.map方法
+//             返回值：数组对象。这里数组中的元素是<li>
+//
+//           */
+//           React.Children.map(this.props.children, function(child){
+//             //child是遍历得到的父组件的子节点
+//             return <li>{child}</li>
+//           })
+//         }
+//       </ul>
+//     );
+//   }
+// });
+//
+// ReactDOM.render(
+//   (
+//     <ListComponent>
+//      <h1>Facebook</h1>
+//      <a href="https://www.facebook.com">https://www.facebook.com</a>
+//     </ListComponent>
+//   ),
+//   document.getElementById('container')
+// );
+
+// -------------------------分割线，第1o节-------------------
+
+/*
+  属性验证 propTypes
+
+  组件类的属性
+
+  用于验证组件实例的属性是否符合要求
+*/
+
+// var ShowTitle = React.createClass({
+//   propTypes: {
+//     // title数据类型必须是字符串
+//     title: React.PropTypes.string.isRequired
+//   },
+//   render: function() {
+//     return <h1>{this.props.title}</h1>
+//   }
+// });
+//
+// ReactDOM.render(
+//   <ShowTitle title="123"/>,
+//   document.getElementById('container')
+// );
+
+/*
+  设置组件属性的默认值
+
+  通过实现组件的getDefaultProps方法，对属性设置默认值
+*/
+
+var MyTitle = React.createClass({
+  getDefaultProps: function() {
+    return {
+      title: "Feacbook"
+    };
+  },
+  render: function() {
+    return <h1>{this.props.title}</h1>
+  }
+});
+
+ReactDOM.render(
+  <MyTitle/>,
+  document.getElementById('container')
+);
+
+
+
+
+
+
+
+
+
+  </script>
+</html>

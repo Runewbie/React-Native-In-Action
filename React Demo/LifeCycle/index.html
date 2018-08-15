@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!-- 模板文件，请勿修改 -->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!--react.js是react的核心库 -->
+    <script src="./build/react.js" charset="utf-8"></script>
+    <!--react-dom.js提供与dom相关的功能-->
+    <script src="./build/react-dom.js" charset="utf-8"></script>
+    <!-- browser.min.js的作用是将JSX的语法转换成JavaScript的语法 -->
+    <script src="./build/browser.min.js" charset="utf-8"></script>
+    <!-- 上边直接使用本地文件，也可以使用在线文件，在src处传入网址 -->
+
+  </head>
+  <body>
+    <!-- React的渲染模板内容会插入到扎个dom节点中，作为一个容器 -->
+    <div id="container">
+
+    </div>
+  </body>
+  <!-- 在React开发中，使用JSX，更JavaScript不兼容，在使用JSX的地方，要设置type：text/babel -->
+  <!-- babel是一个转换编译器，ES6转换成可以在浏览器中运行的代码 -->
+  <script type="text/babel">
+    // 在此处编写React代码
+
+    /*
+
+      生命周期介绍
+
+      1、组件的生命周期可分为三个状态：
+        1）Mounting：组件挂载，已插入真实DOM
+        2）Updating：组件更新，正在被重新渲染
+        3）Unmounting：组件移除，已移除真实DOM
+
+      2、组件的生命周期可分为四个阶段：
+        创建、实例化、更新、销毁
+
+      3、举例：网易新闻列表页面，
+    */
+
+    /*
+      生命周期的方法：
+      1、Mounting组件挂载相关：
+        1）componentWillMount
+        组件将要挂载。在render之前执行，但仅执行一次，即使多次重复渲染该组件，或者改变了组件的state
+        2）componentDidMount
+        组件已经挂载。在render之后执行，同一个组件重复渲染只执行一次
+
+      2、Updating组件更新相关
+        1）componentWillReceiveProps(object nextProps)
+        已加载组件收到更新的props之前调用，注意组件初始化渲染时则不会执行
+        2）shouldComponentUpdate(object nextProps, object nextState) 返回值为Boolean
+        组件判断是否重新渲染时调用。该接口实际是组件接收到了新的 props 或者新的 state 的时候会立即调用，然后通过
+        3）componentWillUpdate(object nextProps, object nextState)
+        组价将要更新
+        4)componentDidUpdate(object prevProps, object prevState)
+        组价已更新
+
+      3、Unmounting组件移除相关：
+        1）componentWillUnmount
+        在组件要被移除之前的时间点触发，可以利用该方法来执行一些必要的清理组件将要被移除
+
+      4、生命周期中与props和state相关：
+        1）getDefaultProps 设置props属性默认值
+        2）getInitialState 设置state属性初始值
+    */
+
+    /*
+      生命周期各阶段介绍
+
+    */
+    var Demo = React.createClass({
+      /*
+      一、创建阶段
+      流程：
+        只调用getDefaultProps方法
+      */
+      getDefaultProps: function() {
+        // 在创建类的时候被调用，设置this.props的默认值
+        console.log("getDefaultProps");
+        return{};
+      },
+
+      /*
+      二、实例化阶段
+      流程：
+        getInitialState
+        componentWillMount
+        render
+        componentDidMount
+      */
+      getInitialState: function() {
+        // 设置this.state的默认值
+        console.log("getInitialState");
+        return null;
+      },
+      componentWillMount: function() {
+        // 在render之前调用
+        console.log("componentWillMount");
+      },
+      render: function() {
+        // 用来渲染并返回一个虚拟DOM
+        console.log("render");
+        return <div>Hello React</div>
+      },
+      componentDidMount: function() {
+        // 在render之后调用
+        // 在该方法中，React会使用render方法返回的虚拟DOM对象创建真实的DOM结构
+        // 可以在这个方法中读取DOM节点
+        console.log("componentDidMount");
+      },
+
+      /*
+      三、更新阶段
+      流程：
+        componentWillReceiveProps
+        shouldComponentUpdate 如果返回值为false，后三个方法不执行
+        componentWillUpdate
+        render
+        componentDidUpdate
+      */
+      componentWillReceiveProps: function() {
+        console.log("componentWillReceiveProps");
+      },
+      shouldComponentUpdate: function() {
+        // 是否需要更新
+        console.log("shouldComponentUpdate");
+        // return true;
+        return false;
+      },
+      componentWillUpdate: function() {
+        console.log("componentWillUpdate");
+      },
+      componentDidUpdate: function() {
+        console.log("componentDidUpdate");
+      },
+
+      /*
+      四、销毁阶段
+      流程：
+        componentWillUnmount
+      */
+      componentWillUnmount: function() {
+        console.log("componentWillUnmount");
+      }
+
+    });
+
+    // 第一次创建并加载组件
+    ReactDOM.render(
+      <Demo/>,
+      document.getElementById('container')
+    );
+
+    // 重新渲染
+    ReactDOM.render(
+      <Demo/>,
+      document.getElementById('container')
+    );
+
+    // 移除组件
+    ReactDOM.unmountComponentAtNode(document.getElementById('container'));
+
+  </script>
+</html>

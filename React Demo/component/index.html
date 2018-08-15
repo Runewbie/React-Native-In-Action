@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<!-- 模板文件，请勿修改 -->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!--react.js是react的核心库 -->
+    <script src="./build/react.js" charset="utf-8"></script>
+    <!--react-dom.js提供与dom相关的功能-->
+    <script src="./build/react-dom.js" charset="utf-8"></script>
+    <!-- browser.min.js的作用是将JSX的语法转换成JavaScript的语法 -->
+    <script src="./build/browser.min.js" charset="utf-8"></script>
+    <!-- 上边直接使用本地文件，也可以使用在线文件，在src处传入网址 -->
+
+    <!-- 选择器样式 -->
+    <style>
+        .pStyle {
+          color: red;
+          font-size: 20px;
+        }
+    </style>
+
+  </head>
+  <body>
+    <!-- React的渲染模板内容会插入到扎个dom节点中，作为一个容器 -->
+    <div id="container">
+
+    </div>
+  </body>
+  <!-- 在React开发中，使用JSX，更JavaScript不兼容，在使用JSX的地方，要设置type：text/babel -->
+  <!-- babel是一个转换编译器，ES6转换成可以在浏览器中运行的代码 -->
+  <script type="text/babel">
+    // 在此处编写React代码
+
+    /*
+      创建一个组件类，用于输出Hello React
+
+      规则：
+      1、React中创建的组件类以大写字母命名，驼峰命名法
+      2、在React中使用React.createClass方法创新一个组件类
+      3、核心代码：每个组件类都必须实现自己的render方法。输出定义好的组件模板。返回值：null，false，组件模板
+      4.注意：组件类只能包含一个顶层标签
+    */
+
+    // 创建组件类
+    // var HelloMessage = React.createClass({
+    //   render: function () {
+    //     return <h1>Hello React</h1>
+    //   }
+    // });
+    //
+    // // 调用组件类进行渲染,在模板中插入  <HelloMessage/>会自动生成一个实例
+    // ReactDOM.render(
+    //   <HelloMessage/>,
+    //   document.getElementById('container')
+    // );
+
+// -----------分割线，第6节 组件的样式-------------
+    /*
+      设置组件的样式，讲解三种样式：
+      1、内联样式
+      2、对象样式
+      3、选择器样式
+
+      注意：在React和HTML5中设置样式时的书写格式是有区别的
+      *1、HTML5以分号(:)结尾
+      *   React以逗号(,)结尾
+      *2、HTML5中key、value都不加引号
+      *   React中属于JavaScript对象，key的名字不能出现连接符(-),需要使用驼峰命名法。如果value为
+      *   字符串，需要加引号。
+      *3、HTML5中，value如果是数字，需要带单位
+      *   React中不需要带单位
+
+
+      我们定义一个组件类，同时使用3种设置组件样式的方式
+      需求：定义一个组件类，分为上下两行显示内容
+      <div> 内联样式：设置背景颜色，边框大小，边框颜色
+        <h1></h1> 对象样式：设置背景颜色，字体颜色
+        <p></p> 选择器样式：设置字体大小
+      <div/>
+
+      注意：在React中使用选择器样式时，属性名不能使用class，需使用className替换
+      类似的：使用htmlFor替换for属性
+    */
+
+    // 创建设置h1样式的对象
+    // var hStyle = {
+    //   backgroundColor:"green",
+    //   color:"red"
+    // }
+    //
+    // var ShowMessage = React.createClass({
+    //     render: function(){
+    //       return(
+    //         <div style={{backgroundColor:"yellow",borderWidth:5,borderColor:"black",borderStyle:"solid"}}>
+    //           <h1 style={hStyle}>{this.props.firstRow}</h1>
+    //           <p className="pStyle">{this.props.secondRow}</p>
+    //         </div>
+    //       )
+    //     }
+    // });
+    //
+    // // 渲染
+    // ReactDOM.render(
+    //   <ShowMessage firstRow="你好" secondRow="React"/>,
+    //   document.getElementById('container')
+    // );
+
+// ----------分割线，第7节 复合组件----------------------
+  /*
+    复合组件
+
+    也称为组合组件，创建多个组件合成一个组件
+  */
+  /*
+    需求：
+    定义一个组件WebShow。功能：输出网站的名字和网址，网址是一个可以点击的链接
+    分析：定义一个组件WebName负责输出网站的名字，定义组件WebLink显示网站的网址，且可以点击
+  */
+
+  // 定义WebName组件
+  var WebName = React.createClass({
+    render:function(){
+      return <h1>Facebook</h1>
+    }
+  });
+
+  // 定义WebLink组件
+  var WebLink = React.createClass({
+    render: function(){
+      return <a href="https://www.facebook.com/">https://www.facebook.com</a>
+    }
+  });
+
+  // 定义复合组件WebShow
+  var WebShow = React.createClass({
+    render: function(){
+      return(
+        <div>
+          <WebName/>
+          <WebLink/>
+        </div>
+      );
+    }
+  });
+
+  // 渲染
+  ReactDOM.render(
+    <WebShow/>,
+    document.getElementById('container')
+  );
+
+
+
+
+
+  </script>
+</html>
